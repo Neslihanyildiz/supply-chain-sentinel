@@ -1,0 +1,12 @@
+{
+  "name": "expresss",
+  "version": "1.0.0",
+  "description": "PoC typosquat package for security research (harmless).",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "node evidence.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
