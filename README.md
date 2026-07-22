@@ -21,6 +21,7 @@ Bu araç, bir projenin bağımlılık dosyasını tarayıp şüpheli paketleri
 güvenlik kapısı olarak entegre edilebiliyor.
 
 ## Mimari
+```
 requirements.txt
 ↓
 Dependency Parser
@@ -38,7 +39,7 @@ Recommendation Engine ──→ "X.X.X sürümüne yükselt"
 SBOM Generator (CycloneDX)
 ↓
 GitHub Action güvenlik kapısı (HIGH/CRITICAL'de build'i durdurur)
-
+```
 Pipeline tamamen deterministik ve açıklanabilir — her karar belirli bir
 sinyale (edit distance, CVE sayısı, yayın metadata'sı) kadar izlenebilir,
 kara kutu (black-box) bir bileşen yok.
