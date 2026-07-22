@@ -4,4 +4,3 @@ numpy
 pandas==2.1.0
 django~=4.2
 
-reqeusts==1.0.0
