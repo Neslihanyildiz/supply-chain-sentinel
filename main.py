@@ -56,3 +56,23 @@ print("\n--- SBOM Generation ---")
 metadata_list = [get_package_metadata(pkg["name"]) for pkg in packages]
 sbom_path = generate_sbom(packages, metadata_list)
 print(f"SBOM generated at: {sbom_path}")
+
+# CI/CD build gate: eğer herhangi bir paket CRITICAL veya HIGH
+# risk kategorisindeyse, işlemi hata koduyla sonlandır.
+import sys
+
+high_risk_found = False
+for pkg in packages:
+    meta = get_package_metadata(pkg["name"])
+    typo = check_typosquat(pkg["name"])
+    vuln = check_vulnerabilities(pkg["name"], version=pkg.get("version"))
+    risk = calculate_risk_score(meta, typo, vuln)
+    if risk["category"] in ("CRITICAL", "HIGH"):
+        high_risk_found = True
+        print(f"[BLOCKING] {pkg['name']} flagged as {risk['category']}: {risk['reasons']}")
+
+if high_risk_found:
+    print("\nBuild failed: one or more dependencies exceed the acceptable risk threshold.")
+    sys.exit(1)
+else:
+    print("\nAll dependencies passed the security check.")
